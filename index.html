@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Harshit! 🎁 A Midnight Celebration from Ayushi</title>
+  
+  <!-- Google Fonts: Elegant Display, Authentic Handwritten, Calligraphy, and Clean UI Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@400;500;600;700&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Kalam:wght@400;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       CANVAS LAYERS & CUSTOM CURSOR (DESKTOP)
+       ============================================================ -->
+  <!-- Starry Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Golden Particle Cloud Cursor Trail Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Glowing Heart-Shaped Cursor Pointer (Desktop only) -->
+  <div id="custom-cursor" class="custom-cursor" aria-hidden="true">
+    <svg viewBox="0 0 24 24" class="cursor-heart">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>
+    <div class="cursor-glow"></div>
+  </div>
+
+  <!-- Audio Element for Ambience / Background Melody (Auto-fallback to Web Audio Synth) -->
+  <audio id="ambient-audio" loop preload="none">
+    <!-- Optional: Add background ambient track, e.g. src="audio/bg-music.mp3" -->
+    <source src="" type="audio/mp3">
+  </audio>
+
+  <!-- ============================================================
+       STAGE A: THE MIDNIGHT WELCOME SCREEN
+       ============================================================ -->
+  <section id="stage-welcome" class="stage stage-active">
+    <div class="welcome-container">
+      <div class="golden-badge-glow">✦ A SPECIAL MIDNIGHT CELEBRATION ✦</div>
+      
+      <p class="welcome-intro">Tonight, the stars align to celebrate an extraordinary human being</p>
+      
+      <h2 class="welcome-title">HAPPY BIRTHDAY</h2>
+      
+      <!-- Elaborate Artistic Calligraphy Name -->
+      <div class="calligraphy-wrapper">
+        <h1 class="calligraphy-name" data-text="Harshit">Harshit</h1>
+        <div class="calligraphy-swash" aria-hidden="true">
+          <svg viewBox="0 0 500 40" fill="none" preserveAspectRatio="none">
+            <path d="M10 20 Q 150 5, 250 20 T 490 20" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="250" cy="20" r="4" fill="#E8CB91"/>
+            <defs>
+              <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="transparent"/>
+                <stop offset="25%" stop-color="#D7B978"/>
+                <stop offset="50%" stop-color="#F5E7C8"/>
+                <stop offset="75%" stop-color="#D7B978"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+
+      <p class="welcome-subtitle">
+        A handcrafted digital universe made with thought, laughter, and so much care — created especially for my best friend, Harshit.
+      </p>
+
+      <button id="btn-enter" class="btn-primary-glow" aria-label="Enter the birthday experience">
+        <span>Begin the Celebration</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
+        </svg>
+      </button>
+
+      <p class="headphone-tip">🎧 Best experienced with sound and on full screen • 26 November 2026</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STAGE B-1: POP THE BALLOONS (SECRET MESSAGE WARM-UP)
+       ============================================================ -->
+  <section id="stage-balloons" class="stage stage-hidden">
+    <div class="balloons-container">
+      <div class="stage-tag">WARM-UP // POP TO UNCOVER</div>
+      <h2 class="stage-title-glow">Pop the Balloons!</h2>
+      <p class="stage-sub-text">There's a secret message hidden underneath. Pop all the floating balloons to uncover what's behind them!</p>
+
+      <!-- Stage Wrapper with Hidden Card Underneath & 20 Balloons Covering It -->
+      <div class="balloons-stage-wrapper">
+        
+        <!-- Secret Message Card Underneath the Balloons -->
+        <div class="balloon-secret-card" id="balloon-secret-card">
+          <div class="secret-confetti-badge">🎈 SECRET NOTE UNLOCKED 🎈</div>
+          <h3 class="secret-revealed-text">Happy birthday my special person cutieee! ✨</h3>
+          <p class="secret-revealed-sub">Now that you've popped all the balloons and uncovered your note, your real birthday gift is ready for you...</p>
+          <button id="btn-balloons-continue" class="btn-primary-glow hidden">
+            <span>Unwrap Your Birthday Gift</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Dense Blanket of 20 Floating Balloons Covering the Area -->
+        <div class="balloon-cluster" id="balloon-cluster">
+          <!-- Balloon 1 -->
+          <div class="balloon-item b-pos-1" data-balloon="1" role="button" tabindex="0" aria-label="Pop balloon 1">
+            <div class="balloon-body gold"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 2 -->
+          <div class="balloon-item b-pos-2" data-balloon="2" role="button" tabindex="0" aria-label="Pop balloon 2">
+            <div class="balloon-body navy"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 3 -->
+          <div class="balloon-item b-pos-3" data-balloon="3" role="button" tabindex="0" aria-label="Pop balloon 3">
+            <div class="balloon-body champagne"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 4 -->
+          <div class="balloon-item b-pos-4" data-balloon="4" role="button" tabindex="0" aria-label="Pop balloon 4">
+            <div class="balloon-body rose"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 5 -->
+          <div class="balloon-item b-pos-5" data-balloon="5" role="button" tabindex="0" aria-label="Pop balloon 5">
+            <div class="balloon-body ivory"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 6 -->
+          <div class="balloon-item b-pos-6" data-balloon="6" role="button" tabindex="0" aria-label="Pop balloon 6">
+            <div class="balloon-body gold"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 7 -->
+          <div class="balloon-item b-pos-7" data-balloon="7" role="button" tabindex="0" aria-label="Pop balloon 7">
+            <div class="balloon-body champagne"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 8 -->
+          <div class="balloon-item b-pos-8" data-balloon="8" role="button" tabindex="0" aria-label="Pop balloon 8">
+            <div class="balloon-body navy"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 9 -->
+          <div class="balloon-item b-pos-9" data-balloon="9" role="button" tabindex="0" aria-label="Pop balloon 9">
+            <div class="balloon-body rose"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 10 -->
+          <div class="balloon-item b-pos-10" data-balloon="10" role="button" tabindex="0" aria-label="Pop balloon 10">
+            <div class="balloon-body ivory"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 11 -->
+          <div class="balloon-item b-pos-11" data-balloon="11" role="button" tabindex="0" aria-label="Pop balloon 11">
+            <div class="balloon-body gold"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 12 -->
+          <div class="balloon-item b-pos-12" data-balloon="12" role="button" tabindex="0" aria-label="Pop balloon 12">
+            <div class="balloon-body champagne"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 13 -->
+          <div class="balloon-item b-pos-13" data-balloon="13" role="button" tabindex="0" aria-label="Pop balloon 13">
+            <div class="balloon-body navy"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 14 -->
+          <div class="balloon-item b-pos-14" data-balloon="14" role="button" tabindex="0" aria-label="Pop balloon 14">
+            <div class="balloon-body rose"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 15 -->
+          <div class="balloon-item b-pos-15" data-balloon="15" role="button" tabindex="0" aria-label="Pop balloon 15">
+            <div class="balloon-body ivory"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 16 -->
+          <div class="balloon-item b-pos-16" data-balloon="16" role="button" tabindex="0" aria-label="Pop balloon 16">
+            <div class="balloon-body gold"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 17 -->
+          <div class="balloon-item b-pos-17" data-balloon="17" role="button" tabindex="0" aria-label="Pop balloon 17">
+            <div class="balloon-body champagne"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 18 -->
+          <div class="balloon-item b-pos-18" data-balloon="18" role="button" tabindex="0" aria-label="Pop balloon 18">
+            <div class="balloon-body rose"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 19 -->
+          <div class="balloon-item b-pos-19" data-balloon="19" role="button" tabindex="0" aria-label="Pop balloon 19">
+            <div class="balloon-body navy"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+          <!-- Balloon 20 -->
+          <div class="balloon-item b-pos-20" data-balloon="20" role="button" tabindex="0" aria-label="Pop balloon 20">
+            <div class="balloon-body ivory"><span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="balloon-instruction" id="balloon-hint">✨ Pop the balloons to uncover the secret note! (20 left) ✨</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STAGE B-2: THE INTERACTIVE GIFT BOX
+       ============================================================ -->
+  <section id="stage-gift" class="stage stage-hidden">
+    <div class="gift-container">
+      <div class="stage-tag">STAGE 01 // UNWRAP THE SURPRISE</div>
+      <h2 class="gift-heading">A Gift Wrapped in Midnight &amp; Gold</h2>
+      <p class="gift-subheading">I put a lot of thought, time and care into building this little universe for you. Tap the box to unwrap your surprise.</p>
+
+      <div class="gift-box-wrapper" id="gift-box" role="button" tabindex="0" aria-label="Click to open the gift box">
+        <div class="gift-glow-halo"></div>
+        <div class="gift-box-3d">
+          <!-- Gift Lid & Bow -->
+          <div class="gift-lid" id="gift-lid">
+            <div class="gift-bow">
+              <div class="bow-left"></div>
+              <div class="bow-right"></div>
+              <div class="bow-center"></div>
+            </div>
+            <div class="lid-ribbon-h"></div>
+            <div class="lid-ribbon-v"></div>
+          </div>
+          <!-- Gift Base -->
+          <div class="gift-body">
+            <div class="body-ribbon-v"></div>
+            <div class="body-ribbon-h"></div>
+            <div class="gift-tag-card">To: Harshit • From: Ayushi 🎁</div>
+          </div>
+        </div>
+
+        <!-- Surprise Card that pops out when opened -->
+        <div class="gift-surprise-card" id="gift-surprise-card">
+          <span class="surprise-icon">🌟</span>
+          <h4 class="surprise-title">Ready for Your Next Surprise?</h4>
+          <p class="surprise-msg">"A special sealed letter is waiting for you. Tap below to break the seal and read it."</p>
+        </div>
+      </div>
+
+      <!-- User-Controlled Progression Prompts -->
+      <p class="gift-instruction" id="gift-hint">✨ Tap the box to unwrap ✨</p>
+      
+      <div class="stage-action-row hidden" id="gift-action-container">
+        <button id="btn-gift-continue" class="btn-primary-glow">
+          <span>Continue to Your Letter</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor" d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
+          </svg>
+        </button>
+        <span class="click-anywhere-subtext">(Or click anywhere on the screen to proceed)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STAGE C: THE ENVELOPE AND BIRTHDAY LETTER PREVIEW
+       ============================================================ -->
+  <section id="stage-envelope" class="stage stage-hidden">
+    <div class="envelope-container">
+      <div class="stage-tag">STAGE 02 // PERSONAL DISPATCH</div>
+      <h2 class="envelope-heading">A Sealed Letter for Harshit</h2>
+      <p class="envelope-subheading">Before you explore the rest, here is something I wrote just for you. Tap the envelope to unseal it.</p>
+
+      <div class="envelope-wrapper" id="envelope-wrapper" role="button" tabindex="0" aria-label="Click to open envelope">
+        <div class="envelope">
+          <div class="envelope-back"></div>
+          
+          <!-- Letter sliding out with authentic handwritten preview -->
+          <div class="envelope-letter" id="envelope-letter">
+            <div class="letter-preview-seal">✦</div>
+            <div class="letter-preview-heading">Happy Birthday, my best friend! ❤️</div>
+            <p class="letter-preview-snippet">
+              Honestly, I'm not very good at writing these things, but I really wanted to write something for you. I'm genuinely so happy that I met you in this college...
+            </p>
+            <span class="letter-preview-tag">Click to read the full letter ➔</span>
+          </div>
+
+          <div class="envelope-front"></div>
+          <div class="envelope-flap" id="envelope-flap"></div>
+          <div class="envelope-seal" id="envelope-seal">
+            <span class="seal-icon">H</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- User-Controlled Progression Controls -->
+      <p class="envelope-instruction" id="envelope-hint">💌 Click the envelope to break the seal</p>
+
+      <div class="stage-action-row hidden" id="envelope-action-container">
+        <button id="btn-envelope-continue" class="btn-primary-glow">
+          <span>Read Full Letter &amp; Enter Universe</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor" d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
+          </svg>
+        </button>
+        <span class="click-anywhere-subtext">(Or click anywhere on the screen to enter)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MAIN EXPERIENCE: THE BIRTHDAY UNIVERSE
+       ============================================================ -->
+  <main id="stage-main" class="stage stage-hidden main-experience">
+    
+    <!-- Top Floating Navigation Dock (Updated to keep only retained sections) -->
+    <header class="main-header glass-panel">
+      <div class="header-logo">
+        <span class="logo-name">Harshit's Birthday</span>
+        <span class="logo-year">26 November 2026</span>
+      </div>
+
+      <nav class="nav-dock" aria-label="Main Navigation">
+        <a href="#section-letter" class="nav-item active" title="Birthday Letter">💌 The Letter</a>
+        <a href="#section-appreciation" class="nav-item" title="What I Appreciate">🌟 What I Appreciate</a>
+        <a href="#section-dictionary" class="nav-item" title="Harshit Dictionary">📖 The Dictionary</a>
+        <a href="#section-awards" class="nav-item" title="Awards Ceremony">🏆 The Awards</a>
+        <a href="#section-memories" class="nav-item" title="Polaroid Memories">📸 Polaroid Lane</a>
+        <a href="#section-fortune" class="nav-item" title="Fortune Cookie">🥠 Fortune Cookie</a>
+        <a href="#section-cake" class="nav-item" title="Birthday Cake">🎂 Make a Wish</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Secret Message Star Trigger in Header -->
+        <button id="secret-star-btn" class="icon-btn" title="A secret star for Harshit..." aria-label="Secret constellation message">
+          <span class="pulsing-star">✦</span>
+        </button>
+        <!-- Ambient Music Toggle -->
+        <button id="music-toggle-btn" class="icon-btn" title="Toggle gentle background chime" aria-label="Toggle ambient chime">
+          <span id="music-icon">🎵</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT WRAPPER -->
+    <div class="universe-content">
+
+      <!-- ============================================================
+           SECTION A: THE BIRTHDAY LETTER (AYUSHI'S EXACT WORDS)
+           ============================================================ -->
+      <section id="section-letter" class="content-section">
+        <div class="section-badge">WRITTEN FROM THE HEART</div>
+        <h2 class="section-title">The Birthday Letter</h2>
+        <p class="section-desc">From Ayushi to Harshit • 26 November 2026</p>
+
+        <article class="letter-paper parchment-card">
+          <div class="parchment-border-ornament top-left"></div>
+          <div class="parchment-border-ornament top-right"></div>
+          <div class="parchment-border-ornament bottom-left"></div>
+          <div class="parchment-border-ornament bottom-right"></div>
+
+          <div class="parchment-header">
+            <span class="parchment-date">26 November 2026 • Midnight Edition</span>
+            <h3 class="parchment-salutation">Happy Birthday, my best friend! ❤️</h3>
+          </div>
+
+          <!-- EXACT LETTER WRITTEN BY AYUSHI -->
+          <div class="parchment-body handwritten-font">
+            <p>
+              Honestly, I'm not very good at writing these things, but I really wanted to write something for you.
+            </p>
+            <p>
+              I'm genuinely so happy that I met you in this college. Otherwise, you know how I would've been?😭 College would've definitely been a little different, and honestly, a little more difficult, without all the random conversations, stupid jokes, laughs and little moments we've shared.
+            </p>
+            <p>
+              It's actually funny how some people slowly become a part of your everyday life without you even realising when it happened. One day, they're just someone you know, just a classmate, and then suddenly, your college days are filled with little moments that you associate with them, especially with me. Random conversations, silly jokes, shared laughter, those little breaks between classes and even the simplest things somehow become memories just because its related with you.
+            </p>
+            <p>
+              You know, I really appreciate the little things you do. The way you help me, check on me and sometimes make things better without even trying. Because honestly, things just feel a little better automatically when you're around.
+            </p>
+            <p>
+              And one thing I genuinely love and respect about you is how you're there, not just when everything is happy and fun, but also when I'm sad, nervous, anxious or just having one of those days when nothing feels right. You never had to do something extraordinary. Sometimes, just having you around makes a difference, and I hope you know how much that means to me.
+            </p>
+            <p>
+              You might not realise it, but you're genuinely special, and you bring so much happiness into the lives of the people around you. I don't think people always realise the impact they have on someone else's life. Sometimes, it's simply about being there, being yourself and making ordinary moments feel a little less ordinary.
+            </p>
+            <p>
+              I hope this new year of your life brings you everything you've been working towards. I hope you get opportunities that excite you, people who genuinely value you, experiences that make you grow and countless reasons to be proud of yourself.
+            </p>
+            <p>
+              Never stop being curious, ambitious, funny and slightly annoying and being yourself. 😂 Keep exploring, keep learning, keep making memories and don't forget to enjoy the journey while chasing everything you dream of. And, never underestimate yourself. You're capable of so much more than you sometimes give yourself credit for.
+            </p>
+            <p>
+              Thank you for being a part of my college memories and for making this little chapter of my life so much more meaningful. I'm genuinely glad our paths crossed. Like, really, thank you God that we met at this time, when we both needed someone its just that we didnt knew that we needed each other in this part of our lives.
+            </p>
+            <p>
+              And lastly, I hope this little birthday surprise makes you smile. I put a lot of thought, time and effort into it, so you better appreciate it. No returns, no exchanges. 😂
+            </p>
+            <p>
+              And one more thing, just remember that our friendship genuinely means a lot to me, and I'd probably cry if anything ever happened to it. So please, let's keep making memories and annoying each other for a very, very long time. 🥹
+            </p>
+            <p>
+              and just wanna tell you again that thank you for coming into my life, actually making me smile and laugh, being so understanding, being my biggest supporter, caring about me.. I really appreciate it. Thank You for just being yourself.
+            </p>
+            <p>
+              Happy Birthday once again, Harshit!
+            </p>
+            <p>
+              Stay happy, stay healthy, keep shining and never lose that spark of yours.
+            </p>
+          </div>
+
+          <div class="parchment-footer">
+            <div class="parchment-sign">
+              <span class="sign-label">With lots of appreciation,</span>
+              <span class="sign-handwritten">Ayushi ❤️</span>
+            </div>
+            <div class="parchment-seal-stamp">
+              <span>BEST FRIENDS FOREVER</span>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- ============================================================
+           SECTION B: WHAT I APPRECIATE ABOUT YOU (4 DISTINCT PILLARS)
+           ============================================================ -->
+      <section id="section-appreciation" class="content-section">
+        <div class="section-badge">PILLARS OF OUR FRIENDSHIP</div>
+        <h2 class="section-title">Things I Appreciate About You</h2>
+        <p class="section-desc">Flip each card — because there are so many little things about you that I genuinely notice and value.</p>
+
+        <div class="cards-grid">
+          <!-- Card 1: Comfort of His Presence -->
+          <div class="flip-card" tabindex="0">
+            <div class="flip-card-inner">
+              <div class="flip-card-front glass-card">
+                <div class="card-icon">☕</div>
+                <h3 class="card-title">Just Having You Around</h3>
+                <p class="card-hint">Hover or tap to read ✦</p>
+              </div>
+              <div class="flip-card-back glass-card gold-border">
+                <h4>The Automatic Comfort</h4>
+                <p>Things just feel better automatically when you're around, without you even having to try. Your presence alone has turned so many chaotic, stressful college days into something calm and manageable.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Little Gestures & Thoughtfulness -->
+          <div class="flip-card" tabindex="0">
+            <div class="flip-card-inner">
+              <div class="flip-card-front glass-card">
+                <div class="card-icon">🤍</div>
+                <h3 class="card-title">The Silent Check-Ins</h3>
+                <p class="card-hint">Hover or tap to read ✦</p>
+              </div>
+              <div class="flip-card-back glass-card gold-border">
+                <h4>The Little Things You Do</h4>
+                <p>I genuinely notice the way you help me, check on me, and sort things out quietly without ever making a big deal out of it. Those small gestures mean way more than you probably realize.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Being There Through Difficult Days -->
+          <div class="flip-card" tabindex="0">
+            <div class="flip-card-inner">
+              <div class="flip-card-front glass-card">
+                <div class="card-icon">🛡️</div>
+                <h3 class="card-title">Not Just For The Good Days</h3>
+                <p class="card-hint">Hover or tap to read ✦</p>
+              </div>
+              <div class="flip-card-back glass-card gold-border">
+                <h4>A Constant Safe Space</h4>
+                <p>You don't just show up when things are happy and fun. When I'm anxious, sad, nervous, or having an off day, you stay right there. Having someone I can be 100% real with is something I deeply cherish.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Making Ordinary Moments Memorable -->
+          <div class="flip-card" tabindex="0">
+            <div class="flip-card-inner">
+              <div class="flip-card-front glass-card">
+                <div class="card-icon">✨</div>
+                <h3 class="card-title">Making Ordinary Days Special</h3>
+                <p class="card-hint">Hover or tap to read ✦</p>
+              </div>
+              <div class="flip-card-back glass-card gold-border">
+                <h4>Laughter In Between Classes</h4>
+                <p>From random conversations to laughing over the stupidest jokes between lectures, you took ordinary, mundane college hours and quietly turned them into memories I'll always treasure.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION C: THE HARSHIT DICTIONARY
+           ============================================================ -->
+      <section id="section-dictionary" class="content-section">
+        <div class="section-badge">OFFICIAL AYUSHI LEXICON</div>
+        <h2 class="section-title">The Harshit Dictionary</h2>
+        <p class="section-desc">My own personal, slightly teasing definition of the human being named Harshit.</p>
+
+        <div class="dictionary-card glass-panel">
+          <div class="dictionary-header">
+            <div class="word-pronounce">
+              <h3 class="dict-word">Harshit</h3>
+              <span class="dict-phonetic">/ˈhʌr.ʃɪt/</span>
+              <span class="dict-pos">noun, verb &amp; adjective</span>
+            </div>
+            <button class="pronounce-btn" id="btn-pronounce" title="Listen to pronunciation">
+              🔊 <span class="pronounce-label">Speak</span>
+            </button>
+          </div>
+
+          <div class="dict-entries">
+            <div class="dict-entry">
+              <span class="def-num">1. [noun]</span>
+              <p class="def-text">
+                That one college classmate who somehow quietly became a central part of my everyday life, without either of us even realizing when it happened.
+              </p>
+            </div>
+
+            <div class="dict-entry">
+              <span class="def-num">2. [verb] — to Harshit</span>
+              <p class="def-text">
+                The rare ability to show up when I'm feeling stressed or anxious, say something completely random or make a dumb face, and instantly make the situation 100x lighter without even trying.
+              </p>
+            </div>
+
+            <div class="dict-entry">
+              <span class="def-num">3. [noun]</span>
+              <p class="def-text">
+                A personal support system disguised as a slightly annoying friend who checks in on me, offers genuinely good advice, and then acts like it was no big deal.
+              </p>
+            </div>
+
+            <div class="dict-entry">
+              <span class="def-num">4. [adjective] — distinctly Harshit</span>
+              <p class="def-text">
+                Characterized by being ambitious, genuinely caring, occasionally annoying, always funny, and completely irreplaceable in Ayushi's life.
+              </p>
+            </div>
+          </div>
+
+          <div class="dict-meta">
+            <div class="meta-item"><strong>Synonyms:</strong> Best Friend, The Go-To Person, Certified Real One, Fellow Chaos Partner.</div>
+            <div class="meta-item"><strong>Antonyms:</strong> Boring, Fake, Replaceable, Stress-Inducer.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION D: THE ANNUAL HARSHIT AWARDS
+           ============================================================ -->
+      <section id="section-awards" class="content-section">
+        <div class="section-badge">AYUSHI'S SPECIAL HONORS</div>
+        <h2 class="section-title">The Annual Harshit Awards</h2>
+        <p class="section-desc">Four certified honors officially bestowed upon Harshit for exceptional services to our friendship.</p>
+
+        <div class="awards-grid">
+          <!-- Award 1 -->
+          <div class="award-card glass-panel" onclick="triggerAwardCelebration('Making Things Better Without Trying')">
+            <div class="award-seal">🥇</div>
+            <h3 class="award-title">The "Making Things Better Without Trying" Award</h3>
+            <p class="award-cat">Natural Calm &amp; Comfort</p>
+            <p class="award-quote">"Awarded for having an automatic calming effect whenever college gets overwhelming, simply by being around and being yourself."</p>
+            <div class="award-ribbon">HONORARY GOLD</div>
+          </div>
+
+          <!-- Award 2 -->
+          <div class="award-card glass-panel" onclick="triggerAwardCelebration('Certified Best Friend & Safe Space')">
+            <div class="award-seal">✨</div>
+            <h3 class="award-title">Certified Best Friend &amp; Safe Space</h3>
+            <p class="award-cat">Beyond Just Fun Days</p>
+            <p class="award-quote">"Awarded for being there through the happy days, the anxious moments, and the days when nothing felt right."</p>
+            <div class="award-ribbon">HIGHEST MERIT</div>
+          </div>
+
+          <!-- Award 3 -->
+          <div class="award-card glass-panel" onclick="triggerAwardCelebration('Low-Key Lifesaver Award')">
+            <div class="award-seal">🛡️</div>
+            <h3 class="award-title">The Low-Key Lifesaver Trophy</h3>
+            <p class="award-cat">Thoughtful Gestures</p>
+            <p class="award-quote">"Awarded for quietly checking in on me and helping out without ever keeping score or making a big deal out of it."</p>
+            <div class="award-ribbon">CRITICAL CLUTCH</div>
+          </div>
+
+          <!-- Award 4 -->
+          <div class="award-card glass-panel" onclick="triggerAwardCelebration('Chief Annoyance & Laughter Officer')">
+            <div class="award-seal">😂</div>
+            <h3 class="award-title">Chief Annoyance &amp; Laughter Officer</h3>
+            <p class="award-cat">Stupid Jokes &amp; Class Breaks</p>
+            <p class="award-quote">"Awarded with highest honors for the unhinged jokes and silly laughs that made college days so much more bearable."</p>
+            <div class="award-ribbon">SUMMA CUM LAUDE</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION E: MEMORY LANE (AESTHETIC POLAROID GALLERY)
+           ============================================================ -->
+      <section id="section-memories" class="content-section">
+        <div class="section-badge">OUR LITTLE COLLEGE ARCHIVE</div>
+        <h2 class="section-title">Polaroid Memory Lane</h2>
+        <p class="section-desc">A little aesthetic collection of our real college moments. Tap any Polaroid to view it up close.</p>
+
+        <!-- Aesthetic Polaroid Grid -->
+        <div class="polaroid-gallery" id="memory-gallery">
+          
+          <!-- Polaroid 1 -->
+          <div class="polaroid-card polaroid-rot-1" data-full="images/memory1.jpg" data-caption="Finding a reason to laugh even on the most exhausting lecture days.">
+            <div class="polaroid-pin"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-photo-frame">
+                <img src="images/memory1.jpg" alt="Little Breaks Between Classes" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <!-- Sensible fallback illustration so missing file never breaks layout -->
+                <div class="polaroid-fallback">
+                  <span class="fallback-icon">☕</span>
+                  <span class="fallback-text">Class Break</span>
+                </div>
+              </div>
+              <div class="polaroid-caption-area">
+                <p class="polaroid-caption">Little breaks between classes ☕</p>
+                <span class="polaroid-subcaption">Finding reasons to laugh through exhausting days</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid 2 -->
+          <div class="polaroid-card polaroid-rot-2" data-full="images/memory2.jpg" data-caption="When a joke that makes zero sense to anyone else leaves us wheezing.">
+            <div class="polaroid-pin"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-photo-frame">
+                <img src="images/memory2.jpg" alt="Laughing Over Stupid Things" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="polaroid-fallback">
+                  <span class="fallback-icon">😂</span>
+                  <span class="fallback-text">Unhinged Laughs</span>
+                </div>
+              </div>
+              <div class="polaroid-caption-area">
+                <p class="polaroid-caption">Laughing over stupid things 😂</p>
+                <span class="polaroid-subcaption">Jokes that make zero sense to anyone else</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid 3 -->
+          <div class="polaroid-card polaroid-rot-3" data-full="images/memory3.jpg" data-caption="From complaining about assignments to talking about life.">
+            <div class="polaroid-pin"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-photo-frame">
+                <img src="images/memory3.jpg" alt="Random College Conversations" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="polaroid-fallback">
+                  <span class="fallback-icon">💬</span>
+                  <span class="fallback-text">Deep Talks</span>
+                </div>
+              </div>
+              <div class="polaroid-caption-area">
+                <p class="polaroid-caption">Random conversations 💬</p>
+                <span class="polaroid-subcaption">From assignment rants to deep life talks</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid 4 -->
+          <div class="polaroid-card polaroid-rot-4" data-full="images/memory4.jpg" data-caption="When you help me solve something and act like it was no big deal.">
+            <div class="polaroid-pin"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-photo-frame">
+                <img src="images/memory4.jpg" alt="Quietly Helping Out" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="polaroid-fallback">
+                  <span class="fallback-icon">🤝</span>
+                  <span class="fallback-text">Helping Out</span>
+                </div>
+              </div>
+              <div class="polaroid-caption-area">
+                <p class="polaroid-caption">Quietly helping out 🤝</p>
+                <span class="polaroid-subcaption">Sorting things out without making a big deal</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid 5 -->
+          <div class="polaroid-card polaroid-rot-5" data-full="images/memory5.jpg" data-caption="The days when college was stressful, but having you around made it fine.">
+            <div class="polaroid-pin"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-photo-frame">
+                <img src="images/memory5.jpg" alt="Days That Felt Difficult" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="polaroid-fallback">
+                  <span class="fallback-icon">💛</span>
+                  <span class="fallback-text">Safe Space</span>
+                </div>
+              </div>
+              <div class="polaroid-caption-area">
+                <p class="polaroid-caption">Days that felt difficult 💛</p>
+                <span class="polaroid-subcaption">College was stressful, but having you made it fine</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid 6 -->
+          <div class="polaroid-card polaroid-rot-6" data-full="images/memory6.jpg" data-caption="Because we still have so many moments left to create together.">
+            <div class="polaroid-pin"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-photo-frame">
+                <img src="images/memory6.jpg" alt="To Memories Still In The Making" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="polaroid-fallback">
+                  <span class="fallback-icon">✨</span>
+                  <span class="fallback-text">Future Chapters</span>
+                </div>
+              </div>
+              <div class="polaroid-caption-area">
+                <p class="polaroid-caption">Memories still in the making ✨</p>
+                <span class="polaroid-subcaption">To all the moments still waiting ahead of us</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid 7 -->
+          <div class="polaroid-card polaroid-rot-7" data-full="images/memory7.jpg" data-caption="Talking about everything and nothing on the walk back home after college.">
+            <div class="polaroid-pin"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-photo-frame">
+                <img src="images/memory7.jpg" alt="Going home together" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="polaroid-fallback">
+                  <span class="fallback-icon">🎒</span>
+                  <span class="fallback-text">Going Home</span>
+                </div>
+              </div>
+              <div class="polaroid-caption-area">
+                <p class="polaroid-caption">Going home together 🚶‍♂️🚶‍♀️</p>
+                <span class="polaroid-subcaption">Talking about everything and nothing on the walk back</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid 8 -->
+          <div class="polaroid-card polaroid-rot-8" data-full="images/memory8.jpg" data-caption="Taking the long way around and unplanned detours just to keep the conversation going.">
+            <div class="polaroid-pin"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-photo-frame">
+                <img src="images/memory8.jpg" alt="Exploring some new routes" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="polaroid-fallback">
+                  <span class="fallback-icon">🧭</span>
+                  <span class="fallback-text">New Routes</span>
+                </div>
+              </div>
+              <div class="polaroid-caption-area">
+                <p class="polaroid-caption">Exploring some new routes 🗺️</p>
+                <span class="polaroid-subcaption">Unplanned detours and taking the long way around</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Polaroid 9 -->
+          <div class="polaroid-card polaroid-rot-9" data-full="images/memory9.jpg" data-caption="Doing absolutely nothing productive and laughing the entire time.">
+            <div class="polaroid-pin"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-photo-frame">
+                <img src="images/memory9.jpg" alt="Just doing timepass" class="polaroid-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="polaroid-fallback">
+                  <span class="fallback-icon">⏳</span>
+                  <span class="fallback-text">Timepass</span>
+                </div>
+              </div>
+              <div class="polaroid-caption-area">
+                <p class="polaroid-caption">Just doing timepass ✨</p>
+                <span class="polaroid-subcaption">Doing nothing productive and laughing the whole time</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="gallery-user-tip">
+          Tip: You can drop your real photos anytime into <code>images/memory1.jpg</code> to <code>images/memory9.jpg</code>!
+        </p>
+      </section>
+
+      <!-- LIGHTBOX MODAL FOR POLAROIDS -->
+      <div id="memory-lightbox" class="lightbox-modal" aria-hidden="true" role="dialog">
+        <div class="lightbox-backdrop"></div>
+        <div class="lightbox-content glass-panel">
+          <button class="lightbox-close" id="lightbox-close" aria-label="Close image popup">&times;</button>
+          <div class="lightbox-media-container" id="lightbox-media">
+            <!-- Dynamic Image / Illustration injected via JS -->
+          </div>
+          <p class="lightbox-caption" id="lightbox-caption"></p>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION F: THE GOLDEN FORTUNE COOKIE
+           ============================================================ -->
+      <section id="section-fortune" class="content-section">
+        <div class="section-badge">A LITTLE BIRTHDAY PROPHECY</div>
+        <h2 class="section-title">The Golden Fortune Cookie</h2>
+        <p class="section-desc">Crack open the golden cookie to reveal a personalized fortune written for your year ahead!</p>
+
+        <div class="fortune-wrapper glass-panel">
+          <div class="cookie-stage" id="cookie-stage" role="button" tabindex="0" aria-label="Crack open the fortune cookie">
+            <div class="cookie-halves" id="cookie-halves">
+              <div class="cookie-half left-half">
+                <svg viewBox="0 0 100 100" class="cookie-svg">
+                  <path d="M10 50 Q 20 20, 60 25 Q 70 50, 50 85 Q 20 80, 10 50 Z" fill="#D7B978" stroke="#E8CB91" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="cookie-half right-half">
+                <svg viewBox="0 0 100 100" class="cookie-svg">
+                  <path d="M90 50 Q 80 20, 40 25 Q 30 50, 50 85 Q 80 80, 90 50 Z" fill="#D7B978" stroke="#E8CB91" stroke-width="2"/>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="fortune-slip" id="fortune-slip">
+              <div class="fortune-slip-inner">
+                <span class="slip-star">✦</span>
+                <p class="fortune-text" id="fortune-text">"This year, all the quiet efforts you've been putting in will lead to something huge. Keep believing in yourself."</p>
+                <span class="fortune-lucky-num">Lucky Numbers: 26 • 11 • 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cookie-controls">
+            <button class="btn-outline-gold" id="btn-crack-cookie">Crack Cookie 🥠</button>
+            <button class="btn-ghost-gold hidden" id="btn-new-cookie">Crack Another ↺</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION G: MAKE A BIRTHDAY WISH — AESTHETIC BIRTHDAY CAKE
+           ============================================================ -->
+      <section id="section-cake" class="content-section">
+        <div class="section-badge">THE BIRTHDAY CEREMONY</div>
+        <h2 class="section-title">Make a Birthday Wish</h2>
+        <p class="section-desc">Close your eyes, make your wish, and click the candles to blow them out! (I already wished for your happiness, so pick something else!)</p>
+
+        <div class="cake-ceremony-card glass-panel">
+          <div class="cake-display-area">
+            
+            <!-- Confetti Canvas for Cake -->
+            <canvas id="confetti-canvas"></canvas>
+
+            <!-- Aesthetic Cake Structure -->
+            <div class="aesthetic-cake-container" id="cake-container" role="button" tabindex="0" aria-label="Click candles to blow them out">
+              
+              <!-- Aesthetic Candle Row (Preserving Candle Blowing Interaction) -->
+              <div class="aesthetic-candles">
+                <div class="cake-candle" id="candle-1">
+                  <div class="candle-flame"></div>
+                  <div class="candle-wick"></div>
+                  <div class="candle-pillar gold-striped"></div>
+                </div>
+                <div class="cake-candle" id="candle-2">
+                  <div class="candle-flame"></div>
+                  <div class="candle-wick"></div>
+                  <div class="candle-pillar cream-striped"></div>
+                </div>
+                <div class="cake-candle" id="candle-3">
+                  <div class="candle-flame"></div>
+                  <div class="candle-wick"></div>
+                  <div class="candle-pillar gold-striped"></div>
+                </div>
+              </div>
+
+              <!-- Cake Tiers: Elegant Cream & Champagne Gold -->
+              <div class="aesthetic-tier tier-top-cake">
+                <div class="scallop-frosting"></div>
+                <div class="delicate-pearls">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="aesthetic-tier tier-mid-cake">
+                <div class="scallop-frosting"></div>
+                <div class="gold-ribbon-stripe"></div>
+                <div class="delicate-pearls">
+                  <span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="aesthetic-tier tier-bottom-cake">
+                <div class="scallop-frosting"></div>
+                <div class="gold-lace-border"></div>
+                <div class="cake-plate-pedestal"></div>
+              </div>
+
+            </div>
+
+            <!-- Heartfelt Birthday Celebration Banner from Ayushi -->
+            <div class="celebration-banner hidden" id="celebration-banner">
+              <span class="banner-badge">✦ WISH SENT TO THE STARS ✦</span>
+              <h3 class="banner-hbd">HAPPY BIRTHDAY, HARSHIT! ❤️</h3>
+              <p class="banner-sub">
+                May this new chapter bring you exciting opportunities, genuine happiness, peaceful days, and countless reasons to be proud of who you are. Thank you for being my best friend — keep shining, cutieee! ✨
+              </p>
+              <button class="btn-primary-glow" onclick="relightCandles()">Light Candles Again 🕯️</button>
+            </div>
+
+            <p class="cake-prompt" id="cake-instruction">✨ Click the candles to blow them out! ✨</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECRET MESSAGE MODAL (Triggered by Secret Celestial Star in Header) -->
+      <div id="secret-modal" class="lightbox-modal" aria-hidden="true" role="dialog">
+        <div class="lightbox-backdrop" onclick="closeSecretModal()"></div>
+        <div class="secret-dialog glass-panel">
+          <button class="lightbox-close" onclick="closeSecretModal()" aria-label="Close dialog">&times;</button>
+          <div class="secret-constellation-icon">✨ 🌌 ✨</div>
+          <h3 class="secret-title">You Found the Secret Star!</h3>
+          <p class="secret-text">
+            P.S. Harshit — you really are my special person and best friend. Thank you for bringing so much laughter, comfort, and meaning into my life. Never lose that spark of yours!
+          </p>
+          <div class="secret-tag">✦ Forever Grateful For You • Ayushi ❤️ ✦</div>
+        </div>
+      </div>
+
+    </div><!-- /universe-content -->
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+      <div class="footer-stars">✦ ✦ ✦</div>
+      <p class="footer-text">
+        Crafted with love, late-night code, and genuine appreciation for my best friend, <strong>Harshit</strong>.
+      </p>
+      <p class="footer-sub">26 November 2026 • Made by Ayushi ❤️</p>
+      <button class="btn-ghost-gold scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to Top ↑</button>
+    </footer>
+
+  </main>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>
